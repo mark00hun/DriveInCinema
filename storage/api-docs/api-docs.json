@@ -1,0 +1,560 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Drive-in Cinema API",
+        "description": "API documentation for the Drive-In Cinema application",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/movies": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get all movies",
+                "operationId": "a7859dc5cd106bbeae5492e22df893ec",
+                "responses": {
+                    "200": {
+                        "description": "List of movies",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MovieResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Store a newly created movie in storage",
+                "operationId": "a303e8fe5382b02a193fa994ebef739f",
+                "requestBody": {
+                    "description": "Movie data to create a new entry",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MovieStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Movie created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MovieResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Incorrect data entry"
+                    }
+                }
+            }
+        },
+        "/api/movies/{id}": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get a single movie",
+                "operationId": "a7031f1ec2eb856acbdd7f7054ed001d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Movie details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MovieResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Update an existing movie",
+                "operationId": "aea46ecba0a2c9a86915ba24cbc23184",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Movie data to update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MovieUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Movie updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MovieResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Delete a movie",
+                "operationId": "7c85892d3135ddee915cb902bd61b7f4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Movie deleted successfully"
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                }
+            }
+        },
+        "/api/screenings": {
+            "get": {
+                "tags": [
+                    "Screenings"
+                ],
+                "summary": "Get all screenings",
+                "operationId": "faef24dd15da03cffded37e53ffcdb15",
+                "responses": {
+                    "200": {
+                        "description": "List of screenings",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ScreeningResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Screenings"
+                ],
+                "summary": "Create a new screening",
+                "operationId": "3274ab36da28448156886ca4a20e94cd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ScreeningStoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Screening created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScreeningResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Incorrect data entry"
+                    }
+                }
+            }
+        },
+        "/api/screenings/{id}": {
+            "get": {
+                "tags": [
+                    "Screenings"
+                ],
+                "summary": "Get a specific screening",
+                "operationId": "d756b8b7ad17a80dbb9bf82855be6294",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the screening",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Screening details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScreeningResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Screening not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Screenings"
+                ],
+                "summary": "Update an existing screening",
+                "operationId": "511669ae5af5bd2b378231b43f5f1898",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the screening",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Screening data to update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ScreeningUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Screening updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScreeningResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Screening not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Screenings"
+                ],
+                "summary": "Delete a screening",
+                "operationId": "6b294d09665682b69d4f91ce05657cce",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the screening",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Screening deleted successfully"
+                    },
+                    "404": {
+                        "description": "Screening not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "MovieStoreRequest": {
+                "description": "Validates the request data for creating a new movie",
+                "required": [
+                    "title",
+                    "description",
+                    "rating",
+                    "language",
+                    "poster_url"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "The title of the movie",
+                        "type": "string",
+                        "example": "The Matrix"
+                    },
+                    "description": {
+                        "description": "A short description of the movie",
+                        "type": "string",
+                        "example": "A hacker discovers the true nature of reality."
+                    },
+                    "rating": {
+                        "description": "The movie's age rating",
+                        "type": "string",
+                        "enum": [
+                            "G",
+                            "PG",
+                            "PG-13",
+                            "R",
+                            "NC-17"
+                        ],
+                        "example": "PG-13"
+                    },
+                    "language": {
+                        "description": "Language code (e.g., 'en' for English, 'fr' for French)",
+                        "type": "string",
+                        "example": "en"
+                    },
+                    "poster_url": {
+                        "description": "URL of the movie poster",
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://via.placeholder.com/640x480.png/0099dd?text=poster"
+                    }
+                },
+                "type": "object"
+            },
+            "MovieUpdateRequest": {
+                "description": "Validates the request data for updating an existing movie",
+                "required": [],
+                "properties": {
+                    "title": {
+                        "description": "The title of the movie",
+                        "type": "string",
+                        "example": "The Matrix"
+                    },
+                    "description": {
+                        "description": "A short description of the movie",
+                        "type": "string",
+                        "example": "A hacker discovers the true nature of reality."
+                    },
+                    "rating": {
+                        "description": "The movie's age rating",
+                        "type": "string",
+                        "enum": [
+                            "G",
+                            "PG",
+                            "PG-13",
+                            "R",
+                            "NC-17"
+                        ],
+                        "example": "PG-13"
+                    },
+                    "language": {
+                        "description": "Language code (e.g., 'en' for English, 'fr' for French)",
+                        "type": "string",
+                        "example": "en"
+                    },
+                    "poster_url": {
+                        "description": "URL of the movie poster",
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://via.placeholder.com/640x480.png/0099dd?text=poster"
+                    }
+                },
+                "type": "object"
+            },
+            "ScreeningStoreRequest": {
+                "description": "Validates the request data for creating a new screening",
+                "required": [
+                    "movie_id",
+                    "screening_time",
+                    "available_places"
+                ],
+                "properties": {
+                    "movie_id": {
+                        "description": "Unique identifier of the movie",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "screening_time": {
+                        "description": "Time of the screening",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-03-15 20:30:00"
+                    },
+                    "available_places": {
+                        "description": "Number of available places",
+                        "type": "integer",
+                        "example": "15"
+                    }
+                },
+                "type": "object"
+            },
+            "ScreeningUpdateRequest": {
+                "description": "Validates the request data for updating an existing screening",
+                "required": [],
+                "properties": {
+                    "movie_id": {
+                        "description": "Unique identifier of the movie",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "screening_time": {
+                        "description": "Time of the screening",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-03-15 20:30:00"
+                    },
+                    "available_places": {
+                        "description": "Number of available places",
+                        "type": "integer",
+                        "example": "15"
+                    }
+                },
+                "type": "object"
+            },
+            "MovieResource": {
+                "description": "Represents a movie entity",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the movie",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "title": {
+                        "description": "The title of the movie",
+                        "type": "string",
+                        "example": "The Matrix"
+                    },
+                    "description": {
+                        "description": "A short description of the movie",
+                        "type": "string",
+                        "example": "A hacker discovers the true nature of reality."
+                    },
+                    "rating": {
+                        "description": "The movie's age rating",
+                        "type": "string",
+                        "enum": [
+                            "G",
+                            "PG",
+                            "PG-13",
+                            "R",
+                            "NC-17"
+                        ],
+                        "example": "PG-13"
+                    },
+                    "language": {
+                        "description": "Language code (e.g., 'en' for English, 'fr' for French)",
+                        "type": "string",
+                        "example": "en"
+                    },
+                    "poster_url": {
+                        "description": "URL of the movie poster",
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://via.placeholder.com/640x480.png/0099dd?text=poster"
+                    }
+                },
+                "type": "object"
+            },
+            "ScreeningResource": {
+                "description": "Represents a screening entity",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the screening",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "movie_id": {
+                        "description": "Unique identifier of the movie",
+                        "type": "integer",
+                        "example": "3"
+                    },
+                    "screening_time": {
+                        "description": "Time of the screening",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-03-15 20:30:00"
+                    },
+                    "available_places": {
+                        "description": "Number of available places",
+                        "type": "integer",
+                        "example": "15"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Movies",
+            "description": "Movie management endpoints"
+        },
+        {
+            "name": "Screenings",
+            "description": "Endpoints for managing movie screenings"
+        }
+    ]
+}

@@ -1,34 +1,44 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Resources;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Movie;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @OA\Schema(
- *     schema="MovieUpdateRequest",
- *     description="Validates the request data for updating an existing movie",
- *     type="object",
- *     required={}
+ *     schema="MovieResource",
+ *     description="Represents a movie entity",
+ *     type="object"
  * )
  */
-class MovieUpdateRequest extends FormRequest
+class MovieResource extends JsonResource
 {
     /**
+     * @var Movie
+     */
+    public $resource;
+
+    /**
+     * @OA\Property(
+     *     property="id",
+     *     type="integer",
+     *     description="Unique identifier of the movie",
+     *     example="1"
+     * )
      * @OA\Property(
      *     property="title",
      *     type="string",
      *     description="The title of the movie",
      *     example="The Matrix"
      * )
-     *
      * @OA\Property(
      *     property="description",
      *     type="string",
      *     description="A short description of the movie",
      *     example="A hacker discovers the true nature of reality."
      * )
-     *
      * @OA\Property(
      *     property="rating",
      *     type="string",
@@ -36,14 +46,12 @@ class MovieUpdateRequest extends FormRequest
      *     enum={"G", "PG", "PG-13", "R", "NC-17"},
      *     example="PG-13"
      * )
-     *
      * @OA\Property(
      *     property="language",
      *     type="string",
      *     description="Language code (e.g., 'en' for English, 'fr' for French)",
      *     example="en"
      * )
-     *
      * @OA\Property(
      *     property="poster_url",
      *     type="string",
@@ -52,14 +60,15 @@ class MovieUpdateRequest extends FormRequest
      *     example="https://via.placeholder.com/640x480.png/0099dd?text=poster"
      * )
      */
-    public function rules(): array
+    public function toArray(Request $request): array
     {
         return [
-            'title' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'rating' => 'nullable|in:G,PG,PG-13,R',
-            'language' => 'nullable|string|max:100',
-            'poster_url' => 'nullable|url',
+            'id' => $this->resource->id,
+            'title' => $this->resource->title,
+            'description' => $this->resource->description,
+            'rating' => $this->resource->rating,
+            'language' => $this->resource->language,
+            'poster_url' => $this->resource->poster_url,
         ];
     }
 }

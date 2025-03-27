@@ -21,7 +21,7 @@ class ScreeningRepository implements RepositoryInterface
         return $this->screening->all();
     }
 
-    public function find(int $id): Screening
+    public function findOrFail(int $id): Screening
     {
         return $this->screening->findOrFail($id);
     }
@@ -33,14 +33,14 @@ class ScreeningRepository implements RepositoryInterface
 
     public function update(int $id, array $data): Screening
     {
-        $screening = $this->screening->findOrFail($id);
+        $screening = $this->findOrFail($id);
         $screening->update($data);
 
         return $screening;
     }
 
-    public function delete(int $id): int
+    public function delete(int $id): ?bool
     {
-        return $this->screening->destroy($id);
+        return $this->findOrFail($id)->delete();
     }
 }

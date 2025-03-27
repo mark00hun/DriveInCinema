@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
  * @property int         $id
  * @property int         $movie_id
  * @property DateTime    $screening_time
- * @property int         $available_seats
+ * @property int         $available_places
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
@@ -25,10 +25,10 @@ class Screening extends Model
     protected $fillable = [
         'movie_id',
         'screening_time',
-        'available_seats',
+        'available_places',
     ];
 
-    protected function casts()
+    protected function casts(): array
     {
         return [
             'screening_time' => 'datetime',

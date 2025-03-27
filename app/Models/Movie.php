@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
  * @property string      $description
  * @property string      rating
  * @property string      $language
- * @property string|null $poster_url
+ * @property string      $poster_url
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('rating');
-            $table->string('language');
-            $table->string('poster_url')->nullable();
+            $table->string('language', 2);
+            $table->string('poster_url');
             $table->timestamps();
         });
     }

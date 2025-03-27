@@ -21,7 +21,7 @@ class MovieRepository implements RepositoryInterface
         return $this->movie->all();
     }
 
-    public function find(int $id): Movie
+    public function findOrFail(int $id): Movie
     {
         return $this->movie->findOrFail($id);
     }
@@ -33,14 +33,14 @@ class MovieRepository implements RepositoryInterface
 
     public function update(int $id, array $data): Movie
     {
-        $movie = $this->movie->findOrFail($id);
+        $movie = $this->findOrFail($id);
         $movie->update($data);
 
         return $movie;
     }
 
-    public function delete(int $id): int
+    public function delete(int $id): ?bool
     {
-        return $this->movie->destroy($id);
+        return $this->findOrFail($id)->delete();
     }
 }

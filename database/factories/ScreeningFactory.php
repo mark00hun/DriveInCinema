@@ -20,7 +20,7 @@ class ScreeningFactory extends Factory
         return [
             'movie_id' => Movie::factory(),
             'screening_time' => $this->faker->dateTimeBetween('+1 days', '+1 month'),
-            'available_seats' => $this->faker->numberBetween(10, 100),
+            'available_places' => $this->faker->numberBetween(10, 100),
         ];
 
     }
